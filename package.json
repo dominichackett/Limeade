@@ -6,9 +6,16 @@
     "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.3",
+    "@heroicons/react": "^2.0.12",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.3",
+    "moralis": "^2.6.5",
+    "moralis-v1": "^1.11.0",
     "next": "latest",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "react-moralis": "^1.4.2"
   },
   "devDependencies": {
     "@types/node": "17.0.35",
