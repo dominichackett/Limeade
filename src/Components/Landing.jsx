@@ -9,12 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useMoralis } from "react-moralis";
 
-const navigation = [
-  { name: "Product", href: "#" },
-  { name: "Features", href: "#" },
-  { name: "Marketplace", href: "#" },
-  { name: "Company", href: "#" },
-];
+const navigation = [{ name: "Pet Insurance", href: "#" }];
 const features = [
   {
     name: "PET NSURANCE",
@@ -133,9 +128,9 @@ export default function Landing() {
       <div className="relative overflow-hidden">
         {/* PHONE SIZE LOGIN STUFF */}
         <Popover as="header" className="relative">
-          <div className="bg-gray-900 pt-6">
+          <div className="bg-white pt-6 pb-6">
             <nav
-              className="relative mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6"
+              className="relative mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 "
               aria-label="Global"
             >
               <div className="flex flex-1 items-center">
@@ -144,12 +139,12 @@ export default function Landing() {
                     <span className="sr-only">Your Company</span>
                     <img
                       className="h-8 w-auto sm:h-10"
-                      src="https://tailwindui.com/img/logos/mark.svg?from-color=teal&from-shade=200&to-color=cyan&to-shade=400&toShade=400"
+                      src="/limeade-screen.png"
                       alt=""
                     />
                   </a>
                   <div className="-mr-2 flex items-center md:hidden">
-                    <Popover.Button className="focus-ring-inset inline-flex items-center justify-center rounded-md bg-gray-900 p-2 text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white">
+                    <Popover.Button className="focus-ring-inset inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white">
                       <span className="sr-only">Open main menu</span>
                       <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                     </Popover.Button>
@@ -160,7 +155,7 @@ export default function Landing() {
                     <a
                       key={item.name}
                       href={item.href}
-                      className="text-base font-medium text-white hover:text-gray-300"
+                      className="text-base font-medium text-gray-900 hover:text-gray-300"
                     >
                       {item.name}
                     </a>
@@ -187,7 +182,7 @@ export default function Landing() {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Popover.Panel
+            {/* <Popover.Panel
               focus
               className="absolute inset-x-0 top-0 origin-top transform p-2 transition md:hidden"
             >
@@ -201,7 +196,7 @@ export default function Landing() {
                     />
                   </div>
                   <div className="-mr-2">
-                    <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-600">
+                    <Popover.Button className="inline-flex items-center justify-center z-60 rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-600">
                       <span className="sr-only">Close menu</span>
                       <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                     </Popover.Button>
@@ -237,51 +232,19 @@ export default function Landing() {
                   </div>
                 </div>
               </div>
-            </Popover.Panel>
+            </Popover.Panel> */}
           </Transition>
         </Popover>
 
         <main>
-          <div className="bg-gray-900 pt-10 sm:pt-16 lg:overflow-hidden lg:pt-8 lg:pb-14">
-            <div className="mx-auto max-w-7xl lg:px-8">
-              <div className="lg:grid lg:grid-cols-2 lg:gap-8">
-                <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 sm:text-center lg:flex lg:items-center lg:px-0 lg:text-left">
-                  <div className="lg:py-24">
-                    <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
-                      <span className="block">A better way to</span>
-                      <span className="block bg-gradient-to-r from-teal-200 to-cyan-400 bg-clip-text pb-3 text-transparent sm:pb-5">
-                        insure your pet
-                      </span>
-                    </h1>
-                    <p className="text-base text-gray-300 sm:text-xl lg:text-lg xl:text-xl">
-                      Crypto insurance for your pet with digital identity via
-                      polygon DID
-                    </p>
-                    <div className="mt-10 sm:mt-12"></div>
-                  </div>
-                </div>
-                <div className="mt-12 -mb-16 sm:-mb-48 lg:relative lg:m-0">
-                  <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
-                    {/* Illustration taken from Lucid Illustrations: https://lucid.pixsellz.io/ */}
-                    <img
-                      className="w-full lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
-                      src="https://tailwindui.com/img/component-images/cloud-illustration-teal-cyan.svg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Feature section with grid */}
           <div className="relative bg-white py-16 sm:py-24 lg:py-32">
             <div className="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
               <h2 className="text-lg font-semibold text-cyan-600">
-                Deploy faster
+                PET INSURANCE
               </h2>
               <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                Everything you need to deploy your app
+                Everything you need to cover your pets wellbeing
               </p>
               <p className="mx-auto mt-5 max-w-prose text-xl text-gray-500">
                 Phasellus lorem quam molestie id quisque diam aenean nulla in.
