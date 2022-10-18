@@ -1,8 +1,10 @@
-export default function Type(props) {
+export default function AgeNGender(props) {
   function nextStep() {
-    const type = document.getElementById("petType").value;
-    props.handleType(type);
-    props.handleStep("4");
+    const age = document.getElementById("petAge").value;
+    const gender = document.getElementById("petGender").value;
+    props.handleAge(age);
+    props.handleGender(gender);
+    props.handleStep("5");
   }
   return (
     <main className="flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
@@ -10,11 +12,18 @@ export default function Type(props) {
         {props.title}
       </h1>
       <div className="mt-6 flex  flex-col items-center h-80 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
-        <h3 className="text-3xl font-bold">What kind of pet do you have?</h3>
-        <select name="petType" id="petType" className="rounded-xl w-3/12">
+        <h3 className="text-3xl font-bold">What is their age and gender?</h3>
+        <input
+          className="rounded-xl tracking-wider"
+          placeholder="age"
+          type="text"
+          name="petAge"
+          id="petAge"
+        />
+        <select name="petGender" id="petGender" className="rounded-xl w-3/12">
           <option value="choose"></option>
-          <option value="cat">cat</option>
-          <option value="dog">dog</option>
+          <option value="male">male</option>
+          <option value="female">female</option>
         </select>
 
         <button

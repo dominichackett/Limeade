@@ -1,6 +1,5 @@
 export default function Start(props) {
   function nextStep() {
-    alert("next step");
     props.handleStep("2");
   }
   return (
