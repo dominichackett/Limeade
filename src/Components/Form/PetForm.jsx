@@ -8,6 +8,10 @@ import Breed from "./Breed";
 import Ownership from "./Ownership";
 import Head from "./Head";
 import Stomache from "./Stomache";
+import Leg from "./Leg";
+import Parasites from "./Parasites";
+import Chronics from "./Chronics";
+import Summary from "./Summary";
 
 export default function PetForm() {
   const { user } = useMoralis();
@@ -48,6 +52,10 @@ export default function PetForm() {
       setStep("9");
     } else if (step == "9") {
       setStep("10");
+    } else if (step == "10") {
+      setStep("11");
+    } else if (step == "11") {
+      setStep("12");
     } else {
       setStep("1");
     }
@@ -113,6 +121,59 @@ export default function PetForm() {
   };
   const handleUrinary = (urin) => {
     setUrinary(urin);
+  };
+
+  // STEP 9 HANDLE LEG & LIMBS
+
+  const [leg, setLeg] = useState();
+  const [limb, setLimb] = useState();
+  const [injury, setInjury] = useState();
+
+  const handleLeg = (l) => {
+    setLeg(l);
+  };
+  const handleLimb = (lim) => {
+    setLimb(lim);
+  };
+  const handleInjury = (inj) => {
+    setInjury(inj);
+  };
+
+  // STEP 10 PARASITES
+
+  const [gia, setGia] = useState();
+  const [fleas, setFleas] = useState();
+  const [mites, setMites] = useState();
+
+  const handleGia = (gia) => {
+    setGia(gia);
+  };
+  const handleFlea = (flea) => {
+    setFleas(flea);
+  };
+  const handleMites = (mites) => {
+    setMites(mites);
+  };
+
+  //   STEP 11 CHRONICS
+  const [allergies, setAllergies] = useState();
+  const [diabetes, setDiabetes] = useState();
+  const [cancer, setCancer] = useState();
+  const [kidneys, setKidneys] = useState();
+  const handleAllergies = (all) => {
+    setAllergies(all);
+  };
+
+  const handleDiabetes = (diab) => {
+    setDiabetes(diab);
+  };
+
+  const handleCancer = (canc) => {
+    setCancer(canc);
+  };
+
+  const handleKidneys = (kid) => {
+    setKidneys(kid);
   };
 
   return (
@@ -184,6 +245,50 @@ export default function PetForm() {
             handleStep={handleStep}
             handleDiarrhea={handleDiarrhea}
             handleUrinary={handleUrinary}
+          />
+        </div>
+        {/* LASTLY HEALTH ISSUES - LEG / LIMB */}
+        <div hidden={step != "9"} className="w-9/12">
+          <Leg
+            title={`And lastly...`}
+            petName={petName}
+            handleStep={handleStep}
+            handleLeg={handleLeg}
+            handleLimb={handleLimb}
+            handleInjury={handleInjury}
+          />
+        </div>
+        {/* LASTLY HEALTH ISSUES - PARASITES */}
+        <div hidden={step != "10"} className="w-9/12">
+          <Parasites
+            title={`And lastly...`}
+            petName={petName}
+            handleStep={handleStep}
+            handleGia={handleGia}
+            handleFlea={handleFlea}
+            handleMites={handleMites}
+          />
+        </div>
+        <div hidden={step != "11"} className="w-9/12">
+          <Chronics
+            title={`And lastly...`}
+            petName={petName}
+            handleStep={handleStep}
+            handleAllergies={handleAllergies}
+            handleDiabetes={handleDiabetes}
+            handleCancer={handleCancer}
+            handleKidneys={handleKidneys}
+          />
+        </div>
+        <div hidden={step != "12"} className="w-9/12">
+          <Summary
+            title={`Thanks!`}
+            petName={petName}
+            petGender={petGender}
+            petAge={petAge}
+            petBreed={petBreed}
+            medicalHistory={"none"}
+            handleStep={handleStep}
           />
         </div>
       </div>
