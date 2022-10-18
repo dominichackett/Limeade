@@ -4,6 +4,10 @@ import Start from "./Start";
 import Name from "./Name";
 import Type from "./Type";
 import AgeNGender from "./AgeNGender";
+import Breed from "./Breed";
+import Ownership from "./Ownership";
+import Head from "./Head";
+import Stomache from "./Stomache";
 
 export default function PetForm() {
   const { user } = useMoralis();
@@ -70,6 +74,47 @@ export default function PetForm() {
   const handleGender = (gender) => {
     setPetGender(gender);
   };
+
+  //   STEP 5 HANDLER - BREED
+
+  const [petBreed, setPetBreed] = useState();
+  const handleBreed = (breed) => {
+    setPetBreed(breed);
+  };
+
+  // STEP 6 HANDLER - OWNERSHIP
+
+  const [petOwnership, setPetOwnership] = useState();
+  const handleOwnership = (ownership) => {
+    setPetOwnership(ownership);
+  };
+
+  // STEP 7 HANDLE HEAD ISSUES
+
+  const [eye, setEye] = useState();
+  const [cough, setCough] = useState();
+  const [ear, setEar] = useState();
+
+  const handleEye = (eye) => {
+    setEye(eye);
+  };
+  const handleEar = (ear) => {
+    setEar(ear);
+  };
+  const handleCough = (cough) => {
+    setCough(cough);
+  };
+
+  //   STEP 8 HANDLE STOMACHE ISSUES
+  const [diarrhea, setDiarrhea] = useState();
+  const [urinary, setUrinary] = useState();
+  const handleDiarrhea = (diarr) => {
+    setDiarrhea(diarr);
+  };
+  const handleUrinary = (urin) => {
+    setUrinary(urin);
+  };
+
   return (
     <main className="flex w-9/12 flex-1 h-full flex-col items-center justify-center px-20 text-center">
       {/*  GET STARTED  */}
@@ -100,6 +145,45 @@ export default function PetForm() {
             handleStep={handleStep}
             handleAge={handleAge}
             handleGender={handleGender}
+          />
+        </div>
+        {/* BREED */}
+        <div hidden={step != "5"} className="w-9/12">
+          <Breed
+            title={`Just a few more Questions...`}
+            petName={petName}
+            handleStep={handleStep}
+            handleBreed={handleBreed}
+          />
+        </div>
+        {/* LENGTH OF OWNERSHIP */}
+        <div hidden={step != "6"} className="w-9/12">
+          <Ownership
+            title={`Almost done...`}
+            petName={petName}
+            handleStep={handleStep}
+            handleOwnership={handleOwnership}
+          />
+        </div>
+        {/* LASTLY HEALTH ISSUES - HEAD */}
+        <div hidden={step != "7"} className="w-9/12">
+          <Head
+            title={`And lastly...`}
+            petName={petName}
+            handleStep={handleStep}
+            handleEye={handleEye}
+            handleCough={handleCough}
+            handleEar={handleEar}
+          />
+        </div>
+        {/* LASTLY HEALTH ISSUES - STOMACHE */}
+        <div hidden={step != "8"} className="w-9/12">
+          <Stomache
+            title={`And lastly...`}
+            petName={petName}
+            handleStep={handleStep}
+            handleDiarrhea={handleDiarrhea}
+            handleUrinary={handleUrinary}
           />
         </div>
       </div>
