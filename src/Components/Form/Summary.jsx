@@ -1,6 +1,8 @@
 export default function Summary(props) {
   function nextStep() {
     //  get quote and move on
+
+    //once you got a quote, create pet profile in moralis database--- if thers a pet profile, show a different starting screen, with an option to add another pet.
     props.handleStep("1");
   }
   return (
