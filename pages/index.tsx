@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import Landing from "../src/Components/Landing";
 import Header from "../src/Components/Header";
-import Start from "../src/Components/Form/Start";
+import PetForm from "../src/Components/Form/PetForm";
 
 const Home: NextPage = () => {
   const { authenticate, logout, isAuthenticated, user } = useMoralis();
@@ -34,8 +34,8 @@ const Home: NextPage = () => {
         <Header />
       </div>
 
-      <main className="flex w-9/12 flex-1 flex-col items-center justify-center px-20 text-center">
-        <Start />
+      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
+        <PetForm />
       </main>
 
       <footer className="flex h-24 w-full items-center justify-center border-t">

@@ -1,7 +1,8 @@
-export default function Start(props) {
+export default function Name(props) {
   function nextStep() {
-    alert("next step");
-    props.handleStep("2");
+    const petName = document.getElementById("petName").value;
+    props.handleName(petName);
+    props.handleStep("3");
   }
   return (
     <main className="flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
@@ -9,16 +10,20 @@ export default function Start(props) {
         {props.title}
       </h1>
       <div className="mt-6 flex  flex-col items-center h-80 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
-        <h3 className="text-3xl font-bold tracking-wide ">PET INSURANCE</h3>
-        <p className="text-xl -mt-6 tracking-wider">for cats & dogs</p>
-        <p className="text-2xl tracking-wide">
-          Lots of coverage, for little cost
-        </p>
+        <h3 className="text-3xl font-bold">What's your pets name?</h3>
+        <input
+          className="rounded-xl tracking-wider"
+          placeholder="name"
+          type="text"
+          name="petName"
+          id="petName"
+        />
+
         <button
           onClick={nextStep}
           className="flex flex-col items-center justify-center w-40 h-12 bg-black text-white rounded-full"
         >
-          Get Started
+          Next
         </button>
       </div>
     </main>
