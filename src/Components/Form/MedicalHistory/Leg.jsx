@@ -17,17 +17,17 @@ export default function Leg(props) {
         <h3 className="text-3xl font-bold">
           Has {props.petName} had any of these issues?
         </h3>
-        <p className="text-xl tracking-wider">Stomache Issues</p>
+        <p className="text-xl tracking-wider">Limb/Leg Issues</p>
         <div className="rounded-xl flex flex-col items-center space-y-2 w-4/12">
-          <div className="flex flex-row items-center justify-around bg-white w-full rounded-xl p-2 space-x-4 ring-1 ring-gray-600">
+          <div className="flex flex-row items-center justify-between px-8 bg-white w-full rounded-xl p-2 space-x-4 ring-1 ring-gray-600">
             <input type="radio" name="leg" value="leg" />
             <p>Broken leg</p>
           </div>
-          <div className="flex flex-row items-center justify-around bg-white w-full rounded-xl p-2 space-x-4 ring-1 ring-gray-600">
+          <div className="flex flex-row items-center justify-between px-8 bg-white w-full rounded-xl p-2 space-x-4 ring-1 ring-gray-600">
             <input type="radio" name="limb" value="limb" />
             <p>Lameless of limb(s)</p>
           </div>
-          <div className="flex flex-row items-center justify-around bg-white w-full rounded-xl p-2 space-x-4 ring-1 ring-gray-600">
+          <div className="flex flex-row items-center justify-between px-8 bg-white w-full rounded-xl p-2 space-x-4 ring-1 ring-gray-600">
             <input type="radio" name="injury" value="injury" />
             <p>Soft tissue injury</p>
           </div>

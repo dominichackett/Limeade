@@ -1,12 +1,60 @@
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useMoralis } from "react-moralis";
+import Notification from "../Notification";
+
 export default function Summary(props) {
-  function nextStep() {
-    //  get quote and move on
+  const { Moralis, user } = useMoralis();
+
+  const router = useRouter();
+
+  // NOTIFICATIONS functions
+  const [notificationTitle, setNotificationTitle] = useState();
+  const [notificationDescription, setNotificationDescription] = useState();
+  const [dialogType, setDialogType] = useState(1);
+
+  const [show, setShow] = useState(false);
+
+  function getQuote() {
+    // storing variables
+    const name = props.petName;
+    const gender = props.petGender;
+    const age = props.petAge;
+    const breed = props.petBreed;
+    const medical = props.medicalHistory;
+    // storing variables in Moralis
+    const Pet = new Moralis.Object.extend("Pet");
+    const pet = new Pet();
+    pet.set("owner", user.get("ethAddress"));
+    pet.set("name", name);
+    pet.set("gender", gender);
+    pet.set("age", age);
+    pet.set("breed", breed);
+    pet.set("medicalHistory", medical);
+    pet.save().then(() => {
+      // setDialogType(1); //Success
+      // setNotificationTitle("Successful");
+      // setNotificationDescription("Getting Quote now...");
+      // setShow(true);
+      router.push("/overview");
+    });
 
     //once you got a quote, create pet profile in moralis database--- if thers a pet profile, show a different starting screen, with an option to add another pet.
-    props.handleStep("1");
+    // props.handleStep("1");
   }
+
+  const close = async () => {
+    setShow(false);
+  };
   return (
     <main className="flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
+      <Notification
+        type={dialogType}
+        show={show}
+        close={close}
+        title={notificationTitle}
+        description={notificationDescription}
+      />
       <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap">
         {props.title}
       </h1>
@@ -38,10 +86,10 @@ export default function Summary(props) {
         </div>
 
         <button
-          onClick={nextStep}
+          onClick={getQuote}
           className="flex flex-col items-center justify-center w-40 h-12 bg-black text-white rounded-full"
         >
-          Get My Quote
+          Get quote
         </button>
       </div>
     </main>

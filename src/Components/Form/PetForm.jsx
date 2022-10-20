@@ -6,12 +6,13 @@ import Type from "./Type";
 import AgeNGender from "./AgeNGender";
 import Breed from "./Breed";
 import Ownership from "./Ownership";
-import Head from "./Head";
-import Stomache from "./Stomache";
-import Leg from "./Leg";
-import Parasites from "./Parasites";
-import Chronics from "./Chronics";
+import Head from "./MedicalHistory/Head";
+import Stomache from "./MedicalHistory/Stomache";
+import Leg from "./MedicalHistory/Leg";
+import Parasites from "./MedicalHistory/Parasites";
+import Chronics from "./MedicalHistory/Chronics";
 import Summary from "./Summary";
+import Overview from "../Overview";
 
 export default function PetForm() {
   const { user } = useMoralis();
@@ -287,10 +288,21 @@ export default function PetForm() {
             petGender={petGender}
             petAge={petAge}
             petBreed={petBreed}
-            medicalHistory={"none"}
+            medicalHistory={"None"}
             handleStep={handleStep}
           />
         </div>
+        {/* <div hidden={step != "13"} className="w-9/12">
+          <Overview
+            title={Title}
+            petName={petName}
+            petGender={petGender}
+            petAge={petAge}
+            petBreed={petBreed}
+            medicalHistory={"None"}
+            handleStep={handleStep}
+          />
+        </div> */}
       </div>
     </main>
   );

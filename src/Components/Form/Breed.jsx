@@ -12,9 +12,9 @@ export default function Breed(props) {
       <div className="mt-6 flex  flex-col items-center h-80 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
         <h3 className="text-3xl font-bold">What breed is {props.petName}?</h3>
         <select name="petBreed" id="petBreed" className="rounded-xl w-4/12">
-          <option value="choose"></option>
-          <option value="pure">Pure Breed</option>
-          <option value="mixed">Mixed Breed</option>
+          <option value="choose">Choose Breed</option>
+          <option value="Pure">Pure Breed</option>
+          <option value="Mixed">Mixed Breed</option>
         </select>
 
         <button

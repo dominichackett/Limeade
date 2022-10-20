@@ -18,7 +18,7 @@ export default function Ownership(props) {
           id="petOwnership"
           className="rounded-xl w-4/12"
         >
-          <option value="choose"></option>
+          <option value="choose">Choose</option>
           <option value="less">Less than a month</option>
           <option value="between">1-6 months</option>
           <option value="more">More than 6 months</option>

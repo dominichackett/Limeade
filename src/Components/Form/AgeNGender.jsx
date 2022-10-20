@@ -21,9 +21,9 @@ export default function AgeNGender(props) {
           id="petAge"
         />
         <select name="petGender" id="petGender" className="rounded-xl w-4/12">
-          <option value="choose"></option>
-          <option value="male">male</option>
-          <option value="female">female</option>
+          <option value="choose">Choose Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
         </select>
 
         <button

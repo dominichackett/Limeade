@@ -1,28 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import Landing from "../src/Components/Landing";
 import Header from "../src/Components/Header";
-import PetForm from "../src/Components/Form/PetForm";
 import Overview from "../src/Components/Overview";
 
 const Home: NextPage = () => {
-  const { authenticate, logout, isAuthenticated, user } = useMoralis();
-  const [auth, setAuth] = useState(true);
-
-  const [userAddress, setUserAddress] = useState();
-
-  useEffect(() => {
-    if (user) {
-      setUserAddress(
-        user.get("ethAddress").slice(0, 6).concat("...") +
-          user.get("ethAddress").slice(38, 44)
-      );
-    } else {
-    }
-  });
+  const { isAuthenticated } = useMoralis();
 
   if (!isAuthenticated) return <Landing />;
   return (
@@ -36,7 +20,7 @@ const Home: NextPage = () => {
       </div>
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <PetForm />
+        <Overview />
       </main>
 
       <footer className="flex h-24 w-full items-center justify-center border-t">
