@@ -15,7 +15,7 @@ export default function AgeNGender(props) {
         <h3 className="text-3xl font-bold">What is their age and gender?</h3>
         <input
           className="rounded-xl tracking-wider"
-          placeholder="age"
+          placeholder="Age"
           type="number"
           name="petAge"
           id="petAge"

@@ -12,9 +12,9 @@ export default function Type(props) {
       <div className="mt-6 flex  flex-col items-center h-80 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
         <h3 className="text-3xl font-bold">What kind of pet do you have?</h3>
         <select name="petType" id="petType" className="rounded-xl w-4/12">
-          <option value="choose"></option>
-          <option value="cat">cat</option>
-          <option value="dog">dog</option>
+          <option value="choose">Choose</option>
+          <option value="cat">Cat</option>
+          <option value="dog">Dog</option>
         </select>
 
         <button

@@ -1,10 +1,11 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useMoralis } from "react-moralis";
+import { useMoralis, useMoralisFile } from "react-moralis";
 import Notification from "../Notification";
 
 export default function Summary(props) {
   const { Moralis, user } = useMoralis();
+  const { saveFile } = useMoralisFile();
 
   const router = useRouter();
 
@@ -15,13 +16,25 @@ export default function Summary(props) {
 
   const [show, setShow] = useState(false);
 
-  function getQuote() {
+  async function getQuote() {
     // storing variables
     const name = props.petName;
     const gender = props.petGender;
     const age = props.petAge;
     const breed = props.petBreed;
     const medical = props.medicalHistory;
+    const imgFile = document.getElementById("file-upload").files[0];
+
+    let ipfsFile = "";
+
+    if (imgFile) {
+      console.log("uploading pet photo");
+      await saveFile("imgfile", imgFile, { saveIPFS: true }).then(
+        async (hash) => {
+          ipfsFile = hash._ipfs;
+        }
+      );
+    }
     // storing variables in Moralis
     const Pet = new Moralis.Object.extend("Pet");
     const pet = new Pet();
@@ -31,6 +44,7 @@ export default function Summary(props) {
     pet.set("age", age);
     pet.set("breed", breed);
     pet.set("medicalHistory", medical);
+    pet.set("petImg", ipfsFile);
     pet.save().then(() => {
       // setDialogType(1); //Success
       // setNotificationTitle("Successful");
@@ -82,6 +96,28 @@ export default function Summary(props) {
           <div className="flex flex-col items-center justify-start ">
             <p className="text-xl">Medical History</p>
             <p className="text-base font-bold">{props.medicalHistory}</p>
+          </div>
+          <div className="flex flex-col items-center justify-start ">
+            <p className="text-xl">Upload Photo</p>
+
+            <div className="mt-1 sm:col-span-2 sm:mt-0">
+              <div className="space-y-1 text-center">
+                <div className="flex text-sm text-gray-600">
+                  <label
+                    htmlFor="file-upload"
+                    className="relative cursor-pointer rounded-full p-2 bg-gray-800 font-medium text-white focus-within:outline-none  hover:text-gray-200"
+                  >
+                    <span>Upload a file</span>
+                    <input
+                      id="file-upload"
+                      name="file-upload"
+                      type="file"
+                      className="sr-only"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
