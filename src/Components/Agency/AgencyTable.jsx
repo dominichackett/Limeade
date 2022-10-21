@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 const claims = [
   {
     id: 1,
@@ -32,7 +34,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Table() {
+export default function AgencyTable() {
+  const router = useRouter();
+
+  function handleValidator() {
+    router.push("/agency/validating");
+  }
   return (
     <div className="px-4 sm:px-6 lg:px-8 w-full">
       <div className="sm:flex sm:items-center"></div>
@@ -136,7 +143,8 @@ export default function Table() {
                   <button
                     type="button"
                     className="inline-flex items-center rounded-full border hover:border-gray-300 text-white bg-black px-3 py-2 text-sm font-medium leading-4  shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-white disabled:cursor-not-allowed disabled:opacity-30"
-                    disabled={plan.isCurrent}
+                    // disabled={plan.isCurrent}
+                    onClick={handleValidator}
                   >
                     Validate <span className="sr-only">, {plan.name}</span>
                   </button>
