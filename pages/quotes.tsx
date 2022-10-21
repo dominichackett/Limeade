@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import Landing from "../src/Components/Landing";
 import Header from "../src/Components/Header";
-import LimeLanding from "../src/Components/LimeLanding";
+import PetForm from "../src/Components/Form/PetForm";
 import Overview from "../src/Components/Overview";
 
 const Home: NextPage = () => {
@@ -24,7 +24,7 @@ const Home: NextPage = () => {
     }
   });
 
-  // if (!isAuthenticated) return <Landing />;
+  if (!isAuthenticated) return <Landing />;
   return (
     <div className="flex min-h-screen flex-col items-center justify-start py-2">
       <Head>
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
       </div>
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <LimeLanding />
+        <PetForm />
       </main>
 
       <footer className="flex h-24 w-full items-center justify-center border-t">

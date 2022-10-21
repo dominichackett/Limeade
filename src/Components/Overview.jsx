@@ -39,6 +39,7 @@ export default function Start(props) {
       <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap">
         Overview of your pet, {userAddress}
       </h1>
+
       <div className="flex flex-row items-center mt-16 justify-evenly w-9/12 space-x-8">
         <div className="mt-6 flex  flex-col items-center h-80 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
           <div className="grid grid-cols-3 gap-4 w-full">

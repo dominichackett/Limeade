@@ -32,7 +32,7 @@ export default function PetForm() {
   });
 
   //   LOOPING THRU STEPS
-  const [step, setStep] = useState("1");
+  const [step, setStep] = useState("2");
 
   const handleStep = () => {
     if (step == "1") {
