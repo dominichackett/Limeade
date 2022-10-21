@@ -26,7 +26,7 @@ export default function LandingOptions(props) {
       <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap">
         {props.title}
       </h1>
-      <div className="flex flex-row items-center justify-evenly space-x-8 w-6/12">
+      <div className="flex flex-row items-center justify-evenly space-x-8 w-full">
         <div className="mt-6 flex  flex-col items-center h-80 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
           <h3 className="text-3xl font-bold tracking-wide ">PET INSURANCE</h3>
           <p className="text-xl -mt-6 tracking-wider">for cats & dogs</p>
@@ -40,7 +40,7 @@ export default function LandingOptions(props) {
             Get Started
           </button>
         </div>
-        {/* <div className="mt-6 flex  flex-col items-center h-80 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
+        <div className="mt-6 flex  flex-col items-center h-80 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
           <h3 className="text-3xl font-bold tracking-wide ">BECOME AN AGENT</h3>
           <p className="text-xl -mt-6 tracking-wider">
             for anyone interested in a sidehustle
@@ -54,7 +54,7 @@ export default function LandingOptions(props) {
           >
             Get Started
           </button>
-        </div> */}
+        </div>
       </div>
     </main>
   );

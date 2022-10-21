@@ -1,12 +1,9 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
-import Landing from "../src/Components/Landing";
 import Header from "../src/Components/Header";
-import LimeLanding from "../src/Components/LimeLanding";
-import Overview from "../src/Components/Overview";
+import Claims from "../src/Components//Claims/Claims";
 
 const Home: NextPage = () => {
   const { authenticate, logout, isAuthenticated, user } = useMoralis();
@@ -37,7 +34,7 @@ const Home: NextPage = () => {
       </div>
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <LimeLanding />
+        <Claims />
       </main>
 
       <footer className="flex h-24 w-full items-center justify-center border-t">
