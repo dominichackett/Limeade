@@ -1,6 +1,7 @@
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useMoralis, useMoralisFile } from "react-moralis";
-import Past from "./Past";
+import AgencyTable from "../Agency/AgencyTable";
 
 const navigation = [
   { name: "New", id: 2, current: false },
@@ -15,9 +16,9 @@ export default function PetForm() {
   const { user, Moralis, isAuthenticated } = useMoralis();
   const { saveFile } = useMoralisFile();
 
-  const [selected, setSelected] = useState("Past");
-
   const [userAddress, setUserAddress] = useState();
+
+  const [polygonIdAuthenticated, setPolygonIdAuthenticated] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -32,6 +33,12 @@ export default function PetForm() {
 
   //   LOOPING THRU STEPS
   const [step, setStep] = useState("1");
+
+  useEffect(() => {
+    if (polygonIdAuthenticated) {
+      setStep("2");
+    } else setStep("1");
+  }, []);
 
   const handleStep = () => {
     if (step == "1") {
@@ -72,106 +79,47 @@ export default function PetForm() {
 
   return (
     <main className="flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
-      {/*  MAKE CLAIM  */}
+      {/*  LOGIN W POLYGON ID  */}
       <div hidden={step != "1"} className="w-full ">
         <div className="w-full flex items-center justify-center">
           <div className="flex flex-col w-6/12 items-center justify-center">
-            <div className="mt-6 flex  flex-col items-center h-80 justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
+            <div className="mt-6 flex  flex-col items-center  justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
               <div>
                 <h3 className="text-4xl font-bold tracking-wide ">
-                  Make a new claim
+                  Sign-in with Polygon ID
                 </h3>
                 <p className="text-2xl tracking-wide">
-                  on your pet insurance policy
+                  to begin validating claims
                 </p>
               </div>
-              <button
-                onClick={handleStep}
-                className="flex flex-col items-center font-semibold justify-center w-40 h-12 bg-black text-white rounded-full"
-              >
-                Claim
-              </button>
+              <div className="py-4 rounded-xl">
+                <Image
+                  src={"/img/qrcode.png"}
+                  width={200}
+                  height={200}
+                  className="rounded-xl"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-      {/*  SELECT: NEW / PAST  */}
+      {/*  OVERVIEW: VALIDATE / DENY APPLICATIONS  */}
       <div hidden={step != "2"} className="w-full">
         <div className="w-full flex items-center justify-center">
           <div className="flex flex-row w-6/12 items-center justify-center">
             <div className="mt-6 flex flex-col items-center justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
-              <nav
-                className={`rounded-full font-bold ring-2  ring-black flex flex-row items-cennter justify-between w-3/12`}
-              >
-                {/* {navigation.map((item, id) => (
-                  <a
-                    key={item.id}
-                    href={item.href}
-                    onClick={() => {
-                      setSelected(item.name);
-                    }}
-                    className={` ${
-                      selected == "Past" ? "bg-black" : "bg-white"
-                    } flex items-center justify-center px-2 w-6/12 bg-black text-white rounded-full`}
-                  >
-                    {item.name}
-                  </a>
-                ))} */}
-                <div className="flex items-center px-2 justify-center w-6/12 py-1 text-black rounded-full">
-                  <button
-                    onClick={() => {
-                      setSelected("New");
-                    }}
-                    className="px-2 rounded-full"
-                  >
-                    New
-                  </button>
-                </div>
-                <div className="flex items-center justify-center px-2 w-6/12 bg-black text-white rounded-full">
-                  <button
-                    onClick={() => {
-                      setSelected("Past");
-                    }}
-                    className="px-2 rounded-full"
-                  >
-                    Past
-                  </button>
-                </div>
-              </nav>
-              {selected == "Past" ? (
-                <div className="w-full">
-                  <Past />
-                </div>
-              ) : (
-                <div className="w-full">
-                  <div className="w-full flex items-center justify-center">
-                    <div className="flex flex-col w-6/12 items-center justify-center">
-                      <div className="mt-6 flex  flex-col items-center justify-around py-8  rounded-xl sm:w-full">
-                        <div className="flex flex-col space-y-8 w-full items-center justify-center">
-                          <h3 className="text-4xl font-bold tracking-wide whitespace-nowrap">
-                            Select the policy you would like to claim
-                          </h3>
-                          <select
-                            id="type"
-                            name="type"
-                            className="text-2xl rounded-full tracking-wide"
-                          >
-                            <option>Oates - Basic Policy</option>
-                            <option>Oates - Advanced</option>
-                            <option>...</option>
-                          </select>
-                          <button
-                            onClick={handleStep}
-                            className="flex flex-col items-center font-semibold justify-center w-40 h-12 bg-black text-white rounded-full"
-                          >
-                            Next Step
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+              <div>
+                <h3 className="text-4xl font-bold tracking-wide ">
+                  Claim Records
+                </h3>
+                <p className="text-2xl tracking-wide">
+                  get rewarded for validating claims
+                </p>
+              </div>
+              <div className="w-full">
+                <AgencyTable />
+              </div>
             </div>
           </div>
         </div>

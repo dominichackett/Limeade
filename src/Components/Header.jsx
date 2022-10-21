@@ -83,29 +83,18 @@ export default function Header() {
         </div>
 
         <div className="hidden md:flex md:items-center md:space-x-6">
-          {isAuthenticated && (
-            <button
-              onClick={connectPolygonID}
-              className={`inline-flex absolute right-48 ${
-                isConnected ? "" : "ring-black"
-              } items-center justify-center rounded-full border border-transparent ring-2 ring-black px-4 py-2 text-white hover:bg-gray-700`}
+          {/* <button
+              onClick={() => {
+                router.push("/");
+              }}
+              className="inline-flex items-center rounded-full border border-transparent bg-black px-4 py-2 font-medium  text-white hover:bg-gray-700"
             >
-              <Image
-                src="/img/polygon-id.jpeg"
-                width={20}
-                height={20}
-                className="rounded-full"
-              />
-              {/* {isConnected ? (
-                <CheckCircleIcon className="text-green-500 ml-2 h-5" />
-              ) : (
-                <ExclamationTriangleIcon className="h-5 ml-2 text-white" />
-              )} */}
-            </button>
-          )}
+              Get a quote
+            
+            </button> */}
           <button
             onClick={handleClick}
-            className="inline-flex items-center rounded-full border border-transparent bg-black px-4 py-2 font-medium  text-white hover:bg-gray-700"
+            className="inline-flex items-center rounded-full border border-transparent ring-2 ring-black px-4 py-2 font-medium  text-black hover:bg-gray-700"
           >
             {isAuthenticated ? userAddress : "Login"}
           </button>

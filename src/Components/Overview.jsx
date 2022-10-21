@@ -101,7 +101,7 @@ export default function Start(props) {
           <div className="flex flex-col items-center w-full justify-start">
             <div
               onClick={() => {
-                router.push("/claim");
+                router.push("/claims");
               }}
               className="flex flex-row items-center cursor-pointer hover:ring-2 hover:ring-black hover:shadow-xl px-4 hover:ring-opacity-75 hover:rounded-full"
             >
