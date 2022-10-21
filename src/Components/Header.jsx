@@ -1,10 +1,25 @@
+import {
+  CheckCircleIcon,
+  ExclamationTriangleIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
+
+const navigation = [
+  { name: "Get Quote", href: "/quotes" },
+  { name: "Overview", href: "/overview" },
+  { name: "Claim", href: "/claim" },
+  { name: "Liquidity", href: "/liquidity" },
+  { name: "Stake", href: "/stake" },
+  { name: "Agency", href: "/agency" },
+];
 
 export default function Header() {
   const { logout, user } = useMoralis();
 
   const [userAddress, setUserAddress] = useState();
+  const [isConnected, setIsConnected] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -16,6 +31,10 @@ export default function Header() {
       setUserAddress("not logged in");
     }
   });
+
+  function connectPolygonID() {
+    // add logic for polygon id
+  }
 
   return (
     <div className="bg-white pt-6 pb-6">
@@ -34,11 +53,35 @@ export default function Header() {
               />
             </a>
           </div>
+          <div className="ml-16">
+            <div className=" flex flex-row px-2">
+              {navigation.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
         <div className="hidden md:flex md:items-center md:space-x-6">
           <button
+            onClick={connectPolygonID}
+            className="inline-flex items-center justify-center rounded-md border border-transparent bg-gray-600 px-2 py-1 text-white hover:bg-gray-700"
+          >
+            Polygon ID{" "}
+            {isConnected ? (
+              <CheckCircleIcon className="text-green-500 ml-2 h-5" />
+            ) : (
+              <ExclamationTriangleIcon className="h-5 ml-2 text-white" />
+            )}
+          </button>
+          <button
             onClick={logout}
-            className="inline-flex items-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white hover:bg-gray-700"
+            className="inline-flex items-center rounded-md border border-transparent bg-gray-600 px-2 py-1  text-white hover:bg-gray-700"
           >
             {userAddress}
           </button>
