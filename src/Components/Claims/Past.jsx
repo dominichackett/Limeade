@@ -41,7 +41,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+export default function Table() {
   return (
     <div className="px-4 sm:px-6 lg:px-8 w-full">
       <div className="sm:flex sm:items-center"></div>
@@ -136,15 +136,6 @@ export default function Example() {
                 >
                   {plan.status}
                 </td>
-                {/* <td
-                  className={classNames(
-                    planIdx === 0 ? "" : "border-t border-gray-200",
-                    "px-3 py-3.5 text-sm text-gray-500"
-                  )}
-                >
-                  <div className="sm:hidden">{plan.price}/mo</div>
-                  <div className="hidden sm:block">{plan.price}/month</div>
-                </td> */}
                 <td
                   className={classNames(
                     planIdx === 0 ? "" : "border-t border-transparent",
