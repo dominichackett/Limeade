@@ -50,7 +50,7 @@ export default function Start(props) {
         Your Account, {userAddress}
       </h1>
 
-      <div className="flex flex-row items-center mt-16 justify-evenly w-9/12 space-x-8">
+      <div className=" grid grid-cols-3 mt-40 mb-40 gap-4 justify-between">
         {/* PET OVERVIEW */}
         <div className="flex  flex-col h-80 items-center w-full justify-start py-6 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
           <div className="flex flex-col items-center justify-start">
@@ -125,6 +125,8 @@ export default function Start(props) {
           </div>
         </div>
         {/* STAKE OVERVIEW */}
+
+        
         <div className="flex  flex-col items-center h-80 w-full justify-start py-6 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
           <div className="flex flex-col items-center w-full justify-start">
             <div
@@ -149,6 +151,59 @@ export default function Start(props) {
             </div>
           </div>
         </div>
+
+          {/* Verify Member */}
+          <div className="flex  flex-col h-80 items-center w-full justify-start py-6 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
+          <div className="flex flex-col items-center justify-start">
+            <div
+             
+              className="flex flex-row items-center cursor-pointer rounded-full hover:ring-2 hover:ring-black hover:shadow-lg px-4 "
+            >
+              <p className="text-xl font-bold">Member Verification</p>
+              <ArrowDownRightIcon className="h-4 ml-2 -rotate-90" />
+            </div>
+          </div>
+          
+          <div className="py-2">
+            <Image
+              src="/img/qrcodemember.PNG"
+              height={378}
+              width={378}
+            />
+          </div>
+          
+          {/* <div className="flex flex-col items-center justify-start">
+            <p className="text-lg">Medical History</p>
+            <p className="text-base font-bold">{props.medicalHistory}None</p>
+          </div> */}
+        </div>
+
+              {/* Verify Member */}
+              <div className="flex  flex-col h-80 items-center w-full justify-start py-6 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
+          <div className="flex flex-col items-center justify-start">
+            <div
+             
+              className="flex flex-row items-center cursor-pointer rounded-full hover:ring-2 hover:ring-black hover:shadow-lg px-4 "
+            >
+              <p className="text-xl font-bold"> Agent Verification</p>
+              <ArrowDownRightIcon className="h-4 ml-2 -rotate-90" />
+            </div>
+          </div>
+          
+          <div className="py-2">
+            <Image
+              src="/img/qrcodeagent.PNG"
+              height={378}
+              width={378}
+            />
+          </div>
+          
+          {/* <div className="flex flex-col items-center justify-start">
+            <p className="text-lg">Medical History</p>
+            <p className="text-base font-bold">{props.medicalHistory}None</p>
+          </div> */}
+        </div>
+        {/* CLAIM OVERVIEW */}
       </div>
     </main>
   );
