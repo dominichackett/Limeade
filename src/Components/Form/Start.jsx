@@ -4,7 +4,7 @@ export default function Start(props) {
   }
   return (
     <main className="flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
-      <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap">
+      <h1 className="text-4xl tracking-widest whitespace-nowrap">
         {props.title}
       </h1>
       <div className="mt-6 flex  flex-col items-center h-80 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">

@@ -6,22 +6,29 @@ export default function Chronics(props) {
     const diabetes = document.querySelector(
       'input[name="diabetes"]:checked'
     )?.value;
-    const cancer = document.querySelector('input[name="cancer"]:checked')?.value;
+    const cancer = document.querySelector(
+      'input[name="cancer"]:checked'
+    )?.value;
     const kidneydiease = document.querySelector(
       'input[name="kidneydisease"]:checked'
     )?.value;
-    let chronics = {allergies:allergies,diabetes:diabetes,cancer:cancer,kidneydisease:kidneydiease};
-    
+    let chronics = {
+      allergies: allergies,
+      diabetes: diabetes,
+      cancer: cancer,
+      kidneydisease: kidneydiease,
+    };
+
     /*props.handleAllergies(allergies);
     props.handleDiabetes(diabetes);
     props.handleCancer(cancer);
     props.handleKidneys(kidneydiease);*/
-    props.handleChronics(chronics)
+    props.handleChronics(chronics);
     props.handleStep("11");
   }
   return (
     <main className=" mb-6 mt-2 flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
-      <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap md:top-20">
+      <h1 className="text-4xl tracking-widest whitespace-nowrap md:top-20">
         {props.title}
       </h1>
       <div className="mt-6 flex  flex-col items-center w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
