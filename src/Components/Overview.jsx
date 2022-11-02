@@ -235,11 +235,11 @@ useEffect(()=>{
   }
   return (
     <main className="flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
-      <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap">
+      <h1 className="text-4xl mt-12 tracking-widest  whitespace-nowrap">
         Your Account, {userAddress}
       </h1>
 
-      <div className=" grid grid-cols-3 mt-40 mb-40 gap-4 justify-between">
+      <div className=" grid grid-cols-3 mt-20 mb-40 gap-4 justify-between">
         {/* PET OVERVIEW */}
         <div className="flex  flex-col h-80 items-center w-full justify-start py-4 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
           <div className="flex flex-col items-center justify-start">
@@ -320,7 +320,6 @@ useEffect(()=>{
         </div>
         {/* STAKE OVERVIEW */}
 
-        
         <div className="flex  flex-col items-center h-80 w-full justify-start py-6 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
           <div className="flex flex-col items-center w-full justify-start">
             <div
@@ -379,7 +378,7 @@ Become a Member </button>
             />
 
           </div>
-          
+
           {/* <div className="flex flex-col items-center justify-start">
             <p className="text-lg">Medical History</p>
             <p className="text-base font-bold">{props.medicalHistory}None</p>

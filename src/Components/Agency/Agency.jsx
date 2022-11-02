@@ -107,8 +107,8 @@ export default function PetForm() {
       {/*  OVERVIEW: VALIDATE / DENY APPLICATIONS  */}
       <div hidden={step != "2"} className="w-full">
         <div className="w-full flex items-center justify-center">
-          <div className="flex flex-row w-6/12 items-center justify-center">
-            <div className="mt-6 flex flex-col items-center justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
+          <div className="flex flex-row sm:w-9/12 w-full xl:w-6/12 items-center justify-center">
+            <div className="mt-6 flex flex-col items-center justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl ">
               <div>
                 <h3 className="text-4xl font-bold tracking-wide ">
                   Claim Records
