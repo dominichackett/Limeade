@@ -1,18 +1,20 @@
 export default function Parasites(props) {
   function nextStep() {
-    const gia = document.querySelector('input[name="giardia"]:checked').value;
-    const flea = document.querySelector('input[name="fleas"]:checked').value;
+    const gia = document.querySelector('input[name="giardia"]:checked')?.value;
+    const flea = document.querySelector('input[name="fleas"]:checked')?.value;
     const mites = document.querySelector(
       'input[name="earmites"]:checked'
-    ).value;
-    props.handleGia(gia);
+    )?.value;
+
+    props.handleParasites({gia:gia,flea:flea,mites:mites})
+    /*props.handleGia(gia);
     props.handleFlea(flea);
-    props.handleMites(mites);
+    props.handleMites(mites);*/
     props.handleStep("10");
   }
   return (
-    <main className="flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
-      <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap">
+    <main className="mb-6 flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
+      <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap md:top-20">
         {props.title}
       </h1>
       <div className="mt-6 flex  flex-col items-center h-96 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
@@ -20,7 +22,7 @@ export default function Parasites(props) {
           Has {props.petName} had any of these issues?
         </h3>
         <p className="text-xl tracking-wider">Parasites</p>
-        <div className="rounded-xl flex flex-col items-center space-y-2 w-4/12">
+        <div className="rounded-xl flex flex-col items-center space-y-2 ">
           <div className="flex flex-row items-center justify-between px-8 bg-white w-full rounded-xl p-2 space-x-4 ring-1 ring-gray-600">
             <input type="radio" name="giardia" value="giardia" />
             <p>Giardia</p>

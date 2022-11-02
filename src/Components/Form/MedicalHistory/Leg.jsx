@@ -1,16 +1,15 @@
 export default function Leg(props) {
   function nextStep() {
-    const leg = document.querySelector('input[name="leg"]:checked').value;
-    const limb = document.querySelector('input[name="limb"]:checked').value;
-    const injury = document.querySelector('input[name="injury"]:checked').value;
-    props.handleLeg(leg);
-    props.handleLimb(limb);
-    props.handleInjury(injury);
+    const leg = document.querySelector('input[name="leg"]:checked')?.value;
+    const limb = document.querySelector('input[name="limb"]:checked')?.value;
+    const injury = document.querySelector('input[name="injury"]:checked')?.value;
+    let legInjury = {leg:leg,limb:limb,injury:injury}
+    props.handleLeg(legInjury);
     props.handleStep("9");
   }
   return (
-    <main className="flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
-      <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap">
+    <main className="mb-6 flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
+      <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap md:top-20">
         {props.title}
       </h1>
       <div className="mt-6 flex  flex-col items-center h-96 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
@@ -18,7 +17,7 @@ export default function Leg(props) {
           Has {props.petName} had any of these issues?
         </h3>
         <p className="text-xl tracking-wider">Limb/Leg Issues</p>
-        <div className="rounded-xl flex flex-col items-center space-y-2 w-4/12">
+        <div className="rounded-xl flex flex-col items-center space-y-2 ">
           <div className="flex flex-row items-center justify-between px-8 bg-white w-full rounded-xl p-2 space-x-4 ring-1 ring-gray-600">
             <input type="radio" name="leg" value="leg" />
             <p>Broken leg</p>

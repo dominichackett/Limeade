@@ -100,81 +100,40 @@ export default function PetForm() {
 
   // STEP 7 HANDLE HEAD ISSUES
 
-  const [eye, setEye] = useState();
-  const [cough, setCough] = useState();
-  const [ear, setEar] = useState();
-
-  const handleEye = (eye) => {
-    setEye(eye);
+  const [head, setHead] = useState();
+ 
+  const handleHead = (h) => {
+    setHead(h);
   };
-  const handleEar = (ear) => {
-    setEar(ear);
-  };
-  const handleCough = (cough) => {
-    setCough(cough);
-  };
-
-  //   STEP 8 HANDLE STOMACHE ISSUES
-  const [diarrhea, setDiarrhea] = useState();
-  const [urinary, setUrinary] = useState();
-  const handleDiarrhea = (diarr) => {
-    setDiarrhea(diarr);
-  };
-  const handleUrinary = (urin) => {
-    setUrinary(urin);
+  
+  //   STEP 8 HANDLE STOMACH ISSUES
+  const [stomach, setStomach] = useState();
+  
+  const handleStomach = (s) => {
+    setStomach(s);
   };
 
   // STEP 9 HANDLE LEG & LIMBS
 
   const [leg, setLeg] = useState();
-  const [limb, setLimb] = useState();
-  const [injury, setInjury] = useState();
-
+  
   const handleLeg = (l) => {
     setLeg(l);
   };
-  const handleLimb = (lim) => {
-    setLimb(lim);
-  };
-  const handleInjury = (inj) => {
-    setInjury(inj);
-  };
-
+  
   // STEP 10 PARASITES
 
-  const [gia, setGia] = useState();
-  const [fleas, setFleas] = useState();
-  const [mites, setMites] = useState();
-
-  const handleGia = (gia) => {
-    setGia(gia);
-  };
-  const handleFlea = (flea) => {
-    setFleas(flea);
-  };
-  const handleMites = (mites) => {
-    setMites(mites);
+  const [parasites, setParasites] = useState();
+  
+  
+  const handleParasites = (p) => {
+    setParasites(p);
   };
 
   //   STEP 11 CHRONICS
-  const [allergies, setAllergies] = useState();
-  const [diabetes, setDiabetes] = useState();
-  const [cancer, setCancer] = useState();
-  const [kidneys, setKidneys] = useState();
-  const handleAllergies = (all) => {
-    setAllergies(all);
-  };
-
-  const handleDiabetes = (diab) => {
-    setDiabetes(diab);
-  };
-
-  const handleCancer = (canc) => {
-    setCancer(canc);
-  };
-
-  const handleKidneys = (kid) => {
-    setKidneys(kid);
+  const [chronics, setChronics] = useState();
+  const handleChronics = (ch) => {
+    setChronics(ch);
   };
 
   return (
@@ -233,9 +192,8 @@ export default function PetForm() {
             title={`And lastly...`}
             petName={petName}
             handleStep={handleStep}
-            handleEye={handleEye}
-            handleCough={handleCough}
-            handleEar={handleEar}
+            handleHead={handleHead}
+           
           />
         </div>
         {/* LASTLY HEALTH ISSUES - STOMACHE */}
@@ -244,8 +202,8 @@ export default function PetForm() {
             title={`And lastly...`}
             petName={petName}
             handleStep={handleStep}
-            handleDiarrhea={handleDiarrhea}
-            handleUrinary={handleUrinary}
+            handleStomach={handleStomach}
+           
           />
         </div>
         {/* LASTLY HEALTH ISSUES - LEG / LIMB */}
@@ -255,8 +213,7 @@ export default function PetForm() {
             petName={petName}
             handleStep={handleStep}
             handleLeg={handleLeg}
-            handleLimb={handleLimb}
-            handleInjury={handleInjury}
+           
           />
         </div>
         {/* LASTLY HEALTH ISSUES - PARASITES */}
@@ -265,30 +222,26 @@ export default function PetForm() {
             title={`And lastly...`}
             petName={petName}
             handleStep={handleStep}
-            handleGia={handleGia}
-            handleFlea={handleFlea}
-            handleMites={handleMites}
-          />
+            handleParasites={handleParasites}
+             />
         </div>
         <div hidden={step != "11"} className="w-9/12">
           <Chronics
             title={`And lastly...`}
             petName={petName}
             handleStep={handleStep}
-            handleAllergies={handleAllergies}
-            handleDiabetes={handleDiabetes}
-            handleCancer={handleCancer}
-            handleKidneys={handleKidneys}
+            handleChronics={handleChronics}
           />
         </div>
         <div hidden={step != "12"} className="w-9/12">
           <Summary
+            petType={petType}
             title={`Thanks!`}
             petName={petName}
             petGender={petGender}
             petAge={petAge}
             petBreed={petBreed}
-            medicalHistory={"None"}
+            medicalHistory={{chronics:chronics,leg:leg,head:head,parasites:parasites,stomach:stomach}}
             handleStep={handleStep}
           />
         </div>

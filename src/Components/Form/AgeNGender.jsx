@@ -1,14 +1,34 @@
+import { useState } from "react";
+import Notification from "../Notification/Notification";
+
 export default function AgeNGender(props) {
   function nextStep() {
     const age = document.getElementById("petAge").value;
     const gender = document.getElementById("petGender").value;
+    if(isNaN(parseInt(age)) || parseInt(age) <= 0 || gender == "choose")
+    {
+      setDialogType(2) //Error
+      setNotificationTitle("Error")
+      setNotificationDescription("Please enter age and gender.")
+      setShow(true)
+      return
+    }
+    
     props.handleAge(age);
     props.handleGender(gender);
     props.handleStep("5");
   }
+   //  NOTIFICATION STATES & FUNCTIONS
+ const [show, setShow] = useState(false);
+ const [notificationTitle, setNotificationTitle] = useState();
+ const [notificationDescription, setNotificationDescription] = useState();
+ const [dialogType, setDialogType] = useState(1);
+ const close = async () => {
+   setShow(false);
+ };
   return (
     <main className="flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
-      <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap">
+      <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap md:top-20">
         {props.title}
       </h1>
       <div className="mt-6 flex  flex-col items-center h-80 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
@@ -32,6 +52,13 @@ export default function AgeNGender(props) {
         >
           Next
         </button>
+        <Notification
+        type={dialogType}
+        show={show}
+        close={close}
+        title={notificationTitle}
+        description={notificationDescription}
+      />
       </div>
     </main>
   );

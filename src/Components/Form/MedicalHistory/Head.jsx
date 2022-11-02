@@ -1,16 +1,17 @@
 export default function Head(props) {
   function nextStep() {
-    const ear = document.querySelector('input[name="ear"]:checked').value;
-    const cough = document.querySelector('input[name="cough"]:checked').value;
-    const eye = document.querySelector('input[name="eye"]:checked').value;
-    props.handleEar(ear);
+    const ear = document.querySelector('input[name="ear"]:checked')?.value;
+    const cough = document.querySelector('input[name="cough"]:checked')?.value;
+    const eye = document.querySelector('input[name="eye"]:checked')?.value;
+    props.handleHead({ear:ear,cough:cough,eye:eye})
+    /*props.handleEar(ear);
     props.handleCough(cough);
-    props.handleEye(eye);
+    props.handleEye(eye);*/
     props.handleStep("7");
   }
   return (
-    <main className="flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
-      <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap">
+    <main className="mb-6 flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
+      <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap md:top-20">
         {props.title}
       </h1>
       <div className="mt-6 flex  flex-col items-center h-96 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
@@ -21,7 +22,7 @@ export default function Head(props) {
         <div
           name="petOwnership"
           id="petOwnership"
-          className="rounded-xl flex flex-col items-center space-y-2 w-4/12"
+          className="rounded-xl flex flex-col items-center space-y-2 "
         >
           <div className="flex flex-row items-center justify-between px-8 bg-white w-full rounded-xl p-2 space-x-4 ring-1 ring-gray-600">
             <input type="radio" name="ear" value="ear-issues" />
