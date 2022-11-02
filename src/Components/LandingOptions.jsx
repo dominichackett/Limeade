@@ -23,7 +23,7 @@ export default function LandingOptions(props) {
   }
   return (
     <main className="mb-4 flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
-      <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap md:top-20">
+      <h1 className="text-4xl tracking-widest  whitespace-nowrap md:top-20">
         {props.title}
       </h1>
       <div className="flex flex-row mt-6 mb-24 items-center justify-evenly space-x-8 w-6/12">
