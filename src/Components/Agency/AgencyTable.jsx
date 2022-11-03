@@ -1,34 +1,10 @@
 import { useRouter } from "next/router";
 
-const claims = [
-  {
-    id: 1,
-    name: "001",
-    date: "3/10/2022",
-    holderID: "0xfe5d...0071",
-    status: "Open",
-    price: "$40",
-    isCurrent: false,
-  },
-  {
-    id: 2,
-    name: "002",
-    date: "20/10/2022",
-    holderID: "0xfe5d...0071",
-    status: "Approved",
-    price: "$80",
-    isCurrent: false,
-  },
-  {
-    id: 3,
-    name: "002",
-    date: "20/10/2022",
-    holderID: "0xfe5d...0071",
-    status: "Denied",
-    price: "$80",
-    isCurrent: false,
-  },
-];
+
+
+import { useMoralis } from "react-moralis";
+import { useEffect, useState } from "react";
+import {format} from 'date-fns';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -36,10 +12,28 @@ function classNames(...classes) {
 
 export default function AgencyTable() {
   const router = useRouter();
-
+  const [claims,setClaims] = useState([])
+  const { user, Moralis } = useMoralis();
   function handleValidator() {
     router.push("/agency/validating");
   }
+
+  // Get Claims
+useEffect(()=>{
+  if(user)
+  {
+     const Claims = Moralis.Object.extend("Claims")
+     const query = new Moralis.Query(Claims)
+     query.equalTo("owner",user.get("ethAddress"))
+     query.descending("createdAt")
+    query.include("policy")
+    query.find().then((result)=>{
+        setClaims(result)
+        console.log(result)
+    })
+  }
+
+},[user])
   return (
     <div className="px-4 sm:px-6 lg:px-8 w-full">
       <div className="sm:flex sm:items-center"></div>
@@ -63,7 +57,7 @@ export default function AgencyTable() {
                 scope="col"
                 className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
               >
-                Policy Holder ID
+                Description
               </th>
               <th
                 scope="col"
@@ -92,7 +86,7 @@ export default function AgencyTable() {
                   )}
                 >
                   <div className="font-medium text-gray-900">
-                    {plan.name}
+                    {plan.id}
                     {plan.isCurrent ? (
                       <span className="ml-1 text-indigo-600">
                         (Current Plan)
@@ -116,7 +110,7 @@ export default function AgencyTable() {
                     "hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell"
                   )}
                 >
-                  {plan.date}
+                 {format(plan.get("dateSubmitted"),'dd/MM/yyyy hh:mm a')}
                 </td>
                 <td
                   className={classNames(
@@ -124,7 +118,7 @@ export default function AgencyTable() {
                     "hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell"
                   )}
                 >
-                  {plan.holderID}
+                    {plan.get("policy").get("name")} - {plan.get("description")}
                 </td>
                 <td
                   className={classNames(
@@ -132,8 +126,9 @@ export default function AgencyTable() {
                     "hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell"
                   )}
                 >
-                  {plan.status}
-                </td>
+                   {plan.get("state") == 0 && "Pending"}
+                  {plan.get("state") == 1 && "Approved"}
+                  {plan.get("state") == 2 && "Denied"}                </td>
                 <td
                   className={classNames(
                     planIdx === 0 ? "" : "border-t border-transparent",

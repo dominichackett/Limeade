@@ -45,7 +45,7 @@ export default function PetForm() {
                   Claim Records
                 </h3>
                 <p className="text-2xl tracking-wide">
-                  get rewarded for validating claims
+                  Get rewarded for validating claims
                 </p>
               </div>
               <div className="w-full">

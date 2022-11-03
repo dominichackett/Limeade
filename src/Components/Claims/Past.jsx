@@ -1,49 +1,35 @@
-const claims = [
-  {
-    id: 1,
-    name: "001",
-    date: "3/10/2022",
-    description: "Neuter procedure",
-    status: "Pending",
-    price: "$40",
-    isCurrent: false,
-  },
-  {
-    id: 2,
-    name: "002",
-    date: "20/10/2022",
-    description: "Anti-flea medication",
-    status: "Approved",
-    price: "$80",
-    isCurrent: false,
-  },
-  {
-    id: 3,
-    name: "002",
-    date: "20/10/2022",
-    description: "Anti-flea medication",
-    status: "Denied",
-    price: "$80",
-    isCurrent: false,
-  },
-  {
-    id: 4,
-    name: "002",
-    date: "20/10/2022",
-    description: "Anti-flea medication",
-    status: "Denied",
-    price: "$80",
-    isCurrent: false,
-  },
-];
+import { ethers } from "ethers";
+import { useMoralis } from "react-moralis";
+import { useEffect, useState } from "react";
+import {format} from 'date-fns';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Table() {
+export default function Table(props) {
+  const [claims,setClaims] = useState([])
+  const { user, Moralis } = useMoralis();
+
+// Get Claims
+useEffect(()=>{
+  if(user)
+  {
+     const Claims = Moralis.Object.extend("Claims")
+     const query = new Moralis.Query(Claims)
+     query.equalTo("owner",user.get("ethAddress"))
+     query.descending("createdAt")
+    query.include("policy")
+    query.find().then((result)=>{
+        setClaims(result)
+        console.log(result)
+    })
+  }
+
+},[])
+ 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 w-full">
+    <div className="px-4 w-full sm:px-6 lg:px-8 w-full">
       <div className="sm:flex sm:items-center"></div>
       <div className="-mx-4 mt-10 ring-1 ring-black sm:-mx-6 md:mx-0 md:rounded-lg">
         <table className="min-w-full divide-y divide-black">
@@ -77,7 +63,7 @@ export default function Table() {
                 scope="col"
                 className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
               >
-                Claim
+                Amount
               </th>
               <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
                 <span className="sr-only">Select</span>
@@ -94,7 +80,7 @@ export default function Table() {
                   )}
                 >
                   <div className="font-medium text-gray-900">
-                    {plan.name}
+                    {plan.id}
                     {plan.isCurrent ? (
                       <span className="ml-1 text-indigo-600">
                         (Current Plan)
@@ -118,7 +104,8 @@ export default function Table() {
                     "hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell"
                   )}
                 >
-                  {plan.date}
+                 {format(plan.get("dateSubmitted"),'dd/MM/yyyy hh:mm a')}
+
                 </td>
                 <td
                   className={classNames(
@@ -126,7 +113,7 @@ export default function Table() {
                     "hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell"
                   )}
                 >
-                  {plan.description}
+                  {plan.get("description")}
                 </td>
                 <td
                   className={classNames(
@@ -134,7 +121,9 @@ export default function Table() {
                     "hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell"
                   )}
                 >
-                  {plan.status}
+                  {plan.get("state") == 0 && "Pending"}
+                  {plan.get("state") == 1 && "Approved"}
+                  {plan.get("state") == 2 && "Denied"}
                 </td>
                 <td
                   className={classNames(
@@ -142,13 +131,7 @@ export default function Table() {
                     "relative py-3.5 pl-3  text-right text-sm font-medium"
                   )}
                 >
-                  <button
-                    type="button"
-                    className="inline-flex items-center rounded-full border hover:border-gray-300 text-white bg-black px-3 py-2 text-sm font-medium leading-4  shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-white disabled:cursor-not-allowed disabled:opacity-30"
-                    disabled={plan.isCurrent}
-                  >
-                    Claim funds<span className="sr-only">, {plan.name}</span>
-                  </button>
+                 {plan.get("amountpaid")}
                   {planIdx !== 0 ? (
                     <div className="absolute right-1 left-0 -top-px h-px bg-black" />
                   ) : null}

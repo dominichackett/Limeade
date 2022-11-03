@@ -186,10 +186,15 @@ export default function Start(props) {
           LimeManagerABI,
           web3.getSigner()
         );
+        try{
         let transaction = await limeManagerContract.polygonIdEnabled();
         //const value = transaction;
         setGotPolygonIdEnabled(true);
         setPolygonIdEnabled(transaction);
+        }catch(error)
+        {
+          
+        }
       }
     }
     getPolygonIdEnabled();
@@ -211,7 +216,7 @@ export default function Start(props) {
         setGotMember(true);
         setMember(transaction);
         }catch(error){
-          
+
         }
       }
     }

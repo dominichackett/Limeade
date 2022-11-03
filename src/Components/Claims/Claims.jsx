@@ -25,7 +25,6 @@ export default function PetForm() {
 
   const [userAddress, setUserAddress] = useState();
   const [policies,setPolicies] = useState([])
-
   //  NOTIFICATION STATES & FUNCTIONS
  const [show, setShow] = useState(false);
  const [notificationTitle, setNotificationTitle] = useState();
@@ -41,7 +40,12 @@ export default function PetForm() {
   if (!isWeb3Enabled) enableWeb3();
 }, []);
 
-  //Get User Policies
+
+
+
+
+
+//Get User Policies
   useEffect(()=>{
 
     if(user)
@@ -103,7 +107,7 @@ export default function PetForm() {
     {
        setDialogType(2)
        setNotificationDescription("File or Description not given.")
-       setNotificationTitle("error")
+       setNotificationTitle("Error")
        setShow(true)
        return
     }
@@ -157,6 +161,7 @@ export default function PetForm() {
       setNotificationTitle("Claim");
       setNotificationDescription("Claim submitted successfully.");
       setShow(true);
+      setRefreshClaims(new Date())
       handleStep("2")
     } catch (error) {
       setDialogType(2); //Failed
@@ -239,7 +244,7 @@ export default function PetForm() {
               </nav>
               {selected == "Past" ? (
                 <div className="w-full">
-                  <Past />
+                  <Past  />
                 </div>
               ) : (
                 <div className="w-full">
