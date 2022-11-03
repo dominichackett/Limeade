@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useMoralis, useMoralisFile } from "react-moralis";
 import Past from "./Past";
 import Notification from "../Notification/Notification";
+import {
+  LimeManagerABI,
+  LimeManagerAddress,
+} from "../Contracts/LimeManagerContract";
 
 const navigation = [
   { name: "New", id: 2, current: false },
@@ -11,9 +15,10 @@ const navigation = [
     current: true,
   },
 ];
+import { ethers } from "ethers";
 
 export default function PetForm() {
-  const { user, Moralis, isAuthenticated } = useMoralis();
+  const { user, Moralis, isAuthenticated,web3,isWeb3Enabled, enableWeb3 } = useMoralis();
   const { saveFile } = useMoralisFile();
 
   const [selected, setSelected] = useState("Past");
@@ -30,6 +35,11 @@ export default function PetForm() {
    setShow(false);
  };
 
+
+
+ useEffect(() => {
+  if (!isWeb3Enabled) enableWeb3();
+}, []);
 
   //Get User Policies
   useEffect(()=>{
@@ -123,7 +133,40 @@ export default function PetForm() {
     claim.set("dateSubmitted",new Date())
     claim.save().then(() => {
       //handleStep("2");
+      makeClaim()
     });
+  }
+  async function makeClaim() {
+    const policy_id = document.getElementById("type").value;
+    const desc= document.getElementById("desc").value;
+
+    try {
+      const LimeManagerContract = new ethers.Contract(
+        LimeManagerAddress,
+        LimeManagerABI,
+        web3.getSigner()
+      );
+      //alert(JSON.stringify(myPolicy))
+      let transaction = await LimeManagerContract.claim(
+        policy_id,desc       
+      );
+
+      await transaction.wait();
+      console.log(transaction);
+      setDialogType(1); //Success
+      setNotificationTitle("Claim");
+      setNotificationDescription("Claim submitted successfully.");
+      setShow(true);
+      handleStep("2")
+    } catch (error) {
+      setDialogType(2); //Failed
+      setNotificationTitle("Claim Submission Failed");
+      setNotificationDescription(
+        error.data ? error.data.message : error.message
+      );
+
+      setShow(true);
+    }
   }
 
   return (

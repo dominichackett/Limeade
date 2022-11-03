@@ -6,5 +6,6 @@ export const LimeManagerABI = [
    'function agentsSignUp() public',
    'function memberSignUp() public',
    'function staked() public view returns (uint256)',
+   'function claim(string calldata policy_id,string calldata description) public',
   "function createPolicy(string calldata policy_id,string calldata name,string calldata breed,uint256 age,uint256 coverage,uint256 premium, string calldata petType)public ",
 ];

@@ -140,8 +140,13 @@ export default function Start(props) {
           LimeManagerABI,
           web3.getSigner()
         );
+        try {
         let transaction = await limeManagerContract.staked();
         setStaked(transaction.toNumber());
+        }catch(error)
+        {
+
+        }
       }
     }
     getStaked();
@@ -155,11 +160,16 @@ export default function Start(props) {
           LimeManagerABI,
           web3.getSigner()
         );
+        try {
         let transaction = await limeManagerContract.agent(
           user.get("ethAddress")
         );
         setGotAgent(true);
         setAgent(transaction);
+        }catch(error)
+        {
+
+        }
       }
     }
     getAgent();
@@ -193,12 +203,16 @@ export default function Start(props) {
           LimeManagerABI,
           web3.getSigner()
         );
+        try {
         let transaction = await limeManagerContract.member(
           user.get("ethAddress")
         );
         //const value = transaction;
         setGotMember(true);
         setMember(transaction);
+        }catch(error){
+          
+        }
       }
     }
     getMember();
