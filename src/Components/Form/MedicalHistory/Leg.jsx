@@ -2,14 +2,16 @@ export default function Leg(props) {
   function nextStep() {
     const leg = document.querySelector('input[name="leg"]:checked')?.value;
     const limb = document.querySelector('input[name="limb"]:checked')?.value;
-    const injury = document.querySelector('input[name="injury"]:checked')?.value;
-    let legInjury = {leg:leg,limb:limb,injury:injury}
+    const injury = document.querySelector(
+      'input[name="injury"]:checked'
+    )?.value;
+    let legInjury = { leg: leg, limb: limb, injury: injury };
     props.handleLeg(legInjury);
     props.handleStep("9");
   }
   return (
     <main className="mb-6 flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
-      <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap md:top-20">
+      <h1 className="text-4xl tracking-widest  whitespace-nowrap md:top-20">
         {props.title}
       </h1>
       <div className="mt-6 flex  flex-col items-center h-96 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">

@@ -4,14 +4,14 @@ export default function Stomache(props) {
       'input[name="diarrhea"]:checked'
     )?.value;
     const urin = document.querySelector('input[name="urinary"]:checked')?.value;
-    props.handleStomach({diarr:diarr,urin:urin})
-   /* props.handleDiarrhea(diarr);
+    props.handleStomach({ diarr: diarr, urin: urin });
+    /* props.handleDiarrhea(diarr);
     props.handleUrinary(urin);*/
     props.handleStep("8");
   }
   return (
     <main className="mb-6 flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
-      <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap md:top-20">
+      <h1 className="text-4xl tracking-widest  whitespace-nowrap md:top-20">
         {props.title}
       </h1>
       <div className="mt-6 flex  flex-col items-center h-96 w-full justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
