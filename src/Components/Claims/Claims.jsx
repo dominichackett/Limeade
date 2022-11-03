@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMoralis, useMoralisFile } from "react-moralis";
 import Past from "./Past";
+import Notification from "../Notification/Notification";
 
 const navigation = [
   { name: "New", id: 2, current: false },
@@ -18,6 +19,33 @@ export default function PetForm() {
   const [selected, setSelected] = useState("Past");
 
   const [userAddress, setUserAddress] = useState();
+  const [policies,setPolicies] = useState([])
+
+  //  NOTIFICATION STATES & FUNCTIONS
+ const [show, setShow] = useState(false);
+ const [notificationTitle, setNotificationTitle] = useState();
+ const [notificationDescription, setNotificationDescription] = useState();
+ const [dialogType, setDialogType] = useState(1);
+ const close = async () => {
+   setShow(false);
+ };
+
+
+  //Get User Policies
+  useEffect(()=>{
+
+    if(user)
+    {
+    const Policy = Moralis.Object.extend("Policy")
+    const query = new Moralis.Query(Policy)
+    query.equalTo("owner",user.get("ethAddress"))
+    query.descending("createdAt")
+    query.include("pet")
+    query.find().then((result)=>{
+        setPolicies(result)
+    })
+  }
+  },[user])
 
   useEffect(() => {
     if (user) {
@@ -37,8 +65,19 @@ export default function PetForm() {
     if (step == "1") {
       setStep("2");
     } else if (step == "2") {
+
+      const policy_id = document.getElementById("type").value;
+      if(policy_id=="choose")
+      {
+        setDialogType(2) //Error
+        setNotificationDescription("Please select a policy.")
+        setNotificationTitle("Error")
+        setShow(true)
+      }
+      else
       setStep("3");
     } else if (step == "3") {
+
       setStep("2");
     }
   };
@@ -46,8 +85,18 @@ export default function PetForm() {
   async function submitProof() {
     // submit proof of claim document to moralis/ipfs database
 
-    const policyType = document.getElementById("type").value;
+    const policy_id = document.getElementById("type").value;
     const imgProof = document.getElementById("file-upload").files[0];
+    const desc= document.getElementById("desc").value;
+
+    if(desc== "" || document.getElementById("file-upload").files <=0)
+    {
+       setDialogType(2)
+       setNotificationDescription("File or Description not given.")
+       setNotificationTitle("error")
+       setShow(true)
+       return
+    }
 
     let ipfsFile = "";
 
@@ -62,11 +111,18 @@ export default function PetForm() {
 
     const Claims = new Moralis.Object.extend("Claims");
     const claim = new Claims();
+    const Policy = new Moralis.Object.extend("Policy")
+    const policy = new Policy()
+    policy.id = policy_id
 
-    claim.set("policyType", policyType);
+    claim.set("policy", policy);
     claim.set("imgProof", ipfsFile);
+    claim.set("state",0)
+    claim.set("description",desc)
+    claim.set("owner",user.get("ethAddress"))
+    claim.set("dateSubmitted",new Date())
     claim.save().then(() => {
-      handleStep("2");
+      //handleStep("2");
     });
   }
 
@@ -156,9 +212,11 @@ export default function PetForm() {
                             name="type"
                             className="text-2xl rounded-full tracking-wide"
                           >
-                            <option>Oates - Basic Policy</option>
-                            <option>Oates - Advanced</option>
-                            <option>...</option>
+                            <option value="choose">Please select a policy</option>
+                            {policies.map((policy)=> (       
+                               <option value={policy.id}>{`${policy.get("pet").get("name")} - ${policy.get("premium")}`}</option>
+                            ))}
+                           
                           </select>
                           <button
                             onClick={handleStep}
@@ -181,8 +239,19 @@ export default function PetForm() {
       <div hidden={step != "3"} className="w-full ">
         <div className="w-full flex items-center justify-center">
           <div className="flex flex-col w-6/12 items-center justify-center">
-            <div className="mt-6 flex  flex-col items-center h-80 justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
+            <div className="mt-6 flex  flex-col items-center h-96 justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
               <div>
+              <h1 className="text-3xl font-bold mb-4">Description</h1>
+        <input
+          className="rounded-xl tracking-wider mb-4"
+          placeholder="Description"
+          type="text"
+          name="desc"
+          id="desc"
+        />
+              </div>
+              <div>
+
                 <h3 className="text-4xl font-bold tracking-wide ">
                   Upload Proof of Claim
                 </h3>
@@ -228,7 +297,7 @@ export default function PetForm() {
               </div>
               <button
                 onClick={submitProof}
-                className="flex flex-col items-center font-semibold justify-center w-40 h-12 bg-black text-white rounded-full"
+                className="mb-4 p-4 flex flex-col items-center font-semibold justify-center w-40 h-12 bg-black text-white rounded-full"
               >
                 Submit
               </button>
@@ -236,6 +305,13 @@ export default function PetForm() {
           </div>
         </div>
       </div>
+      <Notification
+        type={dialogType}
+        show={show}
+        close={close}
+        title={notificationTitle}
+        description={notificationDescription}
+      />
     </main>
   );
 }

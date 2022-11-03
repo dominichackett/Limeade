@@ -13,14 +13,7 @@ export default function LandingOptions(props) {
       router.push("/quotes");
     }
   }
-  function becomeAgent() {
-    if (!isAuthenticated) {
-      alert("Must Log in first!");
-      return;
-    } else {
-      router.push("/quotes");
-    }
-  }
+  
   return (
     <main className="mb-4 flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
       <h1 className="text-4xl tracking-widest absolute left-80 top-52 whitespace-nowrap md:top-20">
