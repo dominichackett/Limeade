@@ -43,7 +43,7 @@ export default function PetForm() {
             <Image src={"/dogimg.png"} width={200} height={200} />
           </div>
         </div>
-        <div className="w-full">
+        <div className="z-0 w-full">
           <LandingOptions title={Title} />
         </div>
       </div>

@@ -193,7 +193,7 @@ export default function Start(props) {
         setPolygonIdEnabled(transaction);
         }catch(error)
         {
-          
+
         }
       }
     }
@@ -281,7 +281,7 @@ export default function Start(props) {
           <div className="py-2 ">
             <p className="text-xl font-wide tracking-widest">{pet?.name}</p>
           </div>
-          <div className="py-2">
+          <div className="py-2" hidden={pet == ""}>
             <Image
               src={pet.petImg == "" ? "/img/noimage.jpg" : pet.petImg}
               className="rounded-full"
@@ -289,19 +289,19 @@ export default function Start(props) {
               width={100}
             />
           </div>
-          <div className="flex flex-col w-6/12 ">
-            <div className="flex flex-row items-center justify-around">
-              <p className="text-lg">Gender</p>
+          <div className="flex flex-col w-6/12 " >
+            <div className="flex flex-row items-center justify-around"  >
+              <p className="text-lg" hidden={pet == ""}>Gender</p>
               <p className="text-base font-bold">
                 {pet?.gender?.toUpperCase()}
               </p>
             </div>
-            <div className="flex flex-row items-center justify-around">
-              <p className="text-lg">Age</p>
+            <div className="flex flex-row items-center justify-around" >
+              <p className="text-lg" hidden={pet == ""}>Age</p>
               <p className="text-base font-bold">{pet.age}</p>
             </div>
-            <div className="flex flex-row items-center justify-around mb-6">
-              <p className="text-lg">Breed</p>
+            <div className="flex flex-row items-center justify-around mb-6" hidden={pet == ""}>
+              <p className="text-lg" hidden={pet == ""}>Breed</p>
               <p className="text-base font-bold">{pet?.breed?.toUpperCase()}</p>
             </div>
           </div>

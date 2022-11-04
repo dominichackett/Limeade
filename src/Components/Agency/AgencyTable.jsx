@@ -14,8 +14,8 @@ export default function AgencyTable() {
   const router = useRouter();
   const [claims,setClaims] = useState([])
   const { user, Moralis } = useMoralis();
-  function handleValidator() {
-    router.push("/agency/validating");
+  function handleValidator(plan) {
+    router.push({pathname:"/agency/validating",query:{claim_id:plan.get("claim_id"),message:plan.get("message"),state:plan.get("state"),imgProof:plan.get("imgProof"),cid:plan.id,pid:plan.get("policy").id,name:plan.get("policy").get("name"),owner:plan.get("owner"),coverage:plan.get("policy").get("coverage"),premium:plan.get("policy").get("premium"),gender:plan.get("policy").get("gender"),petType:plan.get("policy").get("petType"),breed:plan.get("policy").get("breed"),description:plan.get("description")}});
   }
 
   // Get Claims
@@ -139,7 +139,7 @@ useEffect(()=>{
                     type="button"
                     className="inline-flex items-center rounded-full border hover:border-gray-300 text-white bg-black px-3 py-2 text-sm font-medium leading-4  shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-white disabled:cursor-not-allowed disabled:opacity-30"
                     // disabled={plan.isCurrent}
-                    onClick={handleValidator}
+                    onClick={() => handleValidator(plan)}
                   >
                     Validate <span className="sr-only">, {plan.name}</span>
                   </button>
