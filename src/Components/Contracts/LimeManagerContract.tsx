@@ -1,6 +1,7 @@
-export const LimeManagerAddress = "0xF40c0B13d395AeA96f053c8f886A3cCE29cC7623";
+export const LimeManagerAddress = "0x415c5D37f1128C9B41dAcA1FD6569415086AA1Af";
 export const LimeManagerABI = [
    'function member(address) public view returns (bool)',
+   'function payPremium(string calldata policy_id) public',
    'function agent(address) public view returns (bool)',
    'function polygonIdEnabled() public view returns (bool)',
    'function agentsSignUp() public',

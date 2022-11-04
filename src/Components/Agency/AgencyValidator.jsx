@@ -82,7 +82,7 @@ export default function PetForm() {
       );
       //alert(JSON.stringify(myPolicy))
       let transaction = await LimeManagerContract.validateClaim(
-          router.query.claim_id,amountpaid     
+          router.query.cid,amountpaid     
       );
 
       await transaction.wait();
@@ -124,7 +124,7 @@ export default function PetForm() {
       );
       //alert(JSON.stringify(myPolicy))
       let transaction = await LimeManagerContract.denyClaim(
-          router.query.claim_id,message     
+          router.query.cid,message     
       );
 
       await transaction.wait();

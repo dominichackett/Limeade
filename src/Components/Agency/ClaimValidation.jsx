@@ -128,6 +128,8 @@ export default function ClaimValidation(props) {
           type="number"
           name="amountpaid"
           id="amountpaid"
+          disabled={router.query.state!=0}
+
         />            </dd>
           </div>
           <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
@@ -141,6 +143,8 @@ export default function ClaimValidation(props) {
           type="text"
           name="message"
           id="message"
+          disabled={router.query.state!=0}
+
         />            </dd>
           </div>
         </dl>

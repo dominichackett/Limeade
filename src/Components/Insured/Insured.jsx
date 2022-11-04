@@ -8,19 +8,17 @@ import {
 } from "../Contracts/LimeManagerContract";
 
 const navigation = [
-  { name: "New", id: 2, current: false },
+  { name: "New", id: 2, current: true },
   {
     name: "Past",
     id: 1,
-    current: true,
+    current: false,
   },
 ];
 import { ethers } from "ethers";
 
-export default function PetForm() {
-  const { user, Moralis, isAuthenticated,web3,isWeb3Enabled, enableWeb3 } = useMoralis();
-  const { saveFile } = useMoralisFile();
-
+export default function Insured() {
+  const { user, Moralis,web3,isWeb3Enabled, enableWeb3 } = useMoralis();
   const [selected, setSelected] = useState("New");
 
   const [userAddress, setUserAddress] = useState();
@@ -89,60 +87,16 @@ export default function PetForm() {
         setShow(true)
       }
       else
-      setStep("3");
+       payPremium()
     } else if (step == "3") {
 
       setStep("2");
     }
   };
 
-  async function submitProof() {
-    // submit proof of claim document to moralis/ipfs database
-
+  
+  async function payPremium() {
     const policy_id = document.getElementById("type").value;
-    const imgProof = document.getElementById("file-upload").files[0];
-    const desc= document.getElementById("desc").value;
-
-    if(desc== "" || document.getElementById("file-upload").files <=0)
-    {
-       setDialogType(2)
-       setNotificationDescription("File or Description not given.")
-       setNotificationTitle("Error")
-       setShow(true)
-       return
-    }
-
-    let ipfsFile = "";
-
-    if (imgProof) {
-      console.log("uploading pet photo");
-      await saveFile("imgProof", imgProof, { saveIPFS: true }).then(
-        async (hash) => {
-          ipfsFile = hash._ipfs;
-        }
-      );
-    }
-
-    const Claims = new Moralis.Object.extend("Claims");
-    const claim = new Claims();
-    const Policy = new Moralis.Object.extend("Policy")
-    const policy = new Policy()
-    policy.id = policy_id
-
-    claim.set("policy", policy);
-    claim.set("imgProof", ipfsFile);
-    claim.set("state",0)
-    claim.set("description",desc)
-    claim.set("owner",user.get("ethAddress"))
-    claim.set("dateSubmitted",new Date())
-    claim.save().then((cl) => {
-      //handleStep("2");
-      makeClaim(cl.id)
-    });
-  }
-  async function makeClaim(claim_id) {
-    const policy_id = document.getElementById("type").value;
-    const desc= document.getElementById("desc").value;
 
     try {
       const LimeManagerContract = new ethers.Contract(
@@ -151,8 +105,8 @@ export default function PetForm() {
         web3.getSigner()
       );
       //alert(JSON.stringify(myPolicy))
-      let transaction = await LimeManagerContract.claim(
-        policy_id,claim_id,desc       
+      let transaction = await LimeManagerContract.payPremium(
+        policy_id       
       );
 
       await transaction.wait();
@@ -161,7 +115,7 @@ export default function PetForm() {
       setNotificationTitle("Claim");
       setNotificationDescription("Claim submitted successfully.");
       setShow(true);
-      handleStep("2")
+      
     } catch (error) {
       setDialogType(2); //Failed
       setNotificationTitle("Claim Submission Failed");
@@ -182,7 +136,7 @@ export default function PetForm() {
             <div className="mt-6 flex  flex-col items-center h-80 justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
               <div>
                 <h3 className="text-4xl font-bold tracking-wide ">
-                  Make a new claim
+                  Make a payment
                 </h3>
                 <p className="text-2xl tracking-wide">
                   on your pet insurance policy
@@ -192,7 +146,7 @@ export default function PetForm() {
                 onClick={handleStep}
                 className="flex flex-col items-center font-semibold justify-center w-40 h-12 bg-black text-white rounded-full"
               >
-                Claim
+                Pay
               </button>
             </div>
           </div>
@@ -252,7 +206,7 @@ export default function PetForm() {
                       <div className="mt-6 flex  flex-col items-center justify-around py-8  rounded-xl sm:w-full">
                         <div className="flex flex-col space-y-8 w-full items-center justify-center">
                           <h3 className="text-4xl font-bold tracking-wide whitespace-nowrap">
-                            Select the policy you would like to claim
+                            Select the policy you would like to pay
                           </h3>
                           <select
                             id="type"
@@ -269,7 +223,7 @@ export default function PetForm() {
                             onClick={handleStep}
                             className="flex flex-col items-center font-semibold justify-center w-40 h-12 bg-black text-white rounded-full"
                           >
-                            Next Step
+                            Pay Premium
                           </button>
                         </div>
                       </div>
@@ -282,76 +236,7 @@ export default function PetForm() {
         </div>
       </div>
 
-      {/*  UPLOAD PROOF OF CLAIM  */}
-      <div hidden={step != "3"} className="w-full ">
-        <div className="w-full flex items-center justify-center">
-          <div className="flex flex-col w-6/12 items-center justify-center">
-            <div className="mt-6 flex  flex-col items-center h-96 justify-around py-8 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
-              <div>
-              <h1 className="text-3xl font-bold mb-4">Description</h1>
-        <input
-          className="rounded-xl tracking-wider mb-4"
-          placeholder="Description"
-          type="text"
-          name="desc"
-          id="desc"
-        />
-              </div>
-              <div>
-
-                <h3 className="text-4xl font-bold tracking-wide ">
-                  Upload Proof of Claim
-                </h3>
-                <div className="py-4">
-                  <div className="mt-1">
-                    <div className="flex max-w-lg justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
-                      <div className="space-y-1 text-center">
-                        <svg
-                          className="mx-auto h-12 w-12 text-gray-400"
-                          stroke="currentColor"
-                          fill="none"
-                          viewBox="0 0 48 48"
-                          aria-hidden="true"
-                        >
-                          <path
-                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        <div className="flex text-sm text-gray-600">
-                          <label
-                            htmlFor="file-upload"
-                            className="relative cursor-pointer rounded-md  font-medium text-black-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
-                          >
-                            <span>Upload a file</span>
-                            <input
-                              id="file-upload"
-                              name="file-upload"
-                              type="file"
-                              className="sr-only"
-                            />
-                          </label>
-                        </div>
-                        <p className="text-xs text-gray-500">
-                          PNG or JPG up to 10MB
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <button
-                onClick={submitProof}
-                className="mb-4 p-4 flex flex-col items-center font-semibold justify-center w-40 h-12 bg-black text-white rounded-full"
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+     
       <Notification
         type={dialogType}
         show={show}
