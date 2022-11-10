@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 export default function ClaimValidation(props) {
   const router = useRouter()
-
+ // 
   return (
     <div className="overflow-hidden bg-white shadow sm:rounded-lg">
       {/* <div className="px-4 py-5 sm:px-6">
@@ -26,7 +26,7 @@ export default function ClaimValidation(props) {
 
           <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">
-              Type
+              Type  
             </dt>
             <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
             {(router.query?.petType ? router.query?.petType.toUpperCase() : "")} - {(router.query?.gender ? router.query?.gender.toUpperCase(): "")} - {(router.query?.breed ? router.query?.breed?.toUpperCase() : "")} 
