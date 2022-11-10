@@ -131,7 +131,7 @@ useEffect(()=>{
                     "relative py-3.5 pl-3  text-right text-sm font-medium"
                   )}
                 >
-                 {plan.get("amountpaid")}
+                 {(plan.get("amountpaid") ? parseFloat(ethers.utils.formatUnits(plan.get("amountpaid"),6)).toFixed(2) : "")}
                   {planIdx !== 0 ? (
                     <div className="absolute right-1 left-0 -top-px h-px bg-black" />
                   ) : null}

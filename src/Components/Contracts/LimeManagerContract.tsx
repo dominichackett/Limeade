@@ -1,5 +1,7 @@
-export const LimeManagerAddress = "0x415c5D37f1128C9B41dAcA1FD6569415086AA1Af";
+export const LimeManagerAddress = "0xaD3c1CEe1f1Ff1dE907B4A589e666E573CE87C1f";
 export const LimeManagerABI = [
+  'function agentStaking(uint256 amount)public',
+  'function removeAgentStake(uint256 amount)public',
    'function member(address) public view returns (bool)',
    'function payPremium(string calldata policy_id) public',
    'function agent(address) public view returns (bool)',

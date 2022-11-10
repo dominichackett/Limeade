@@ -24,7 +24,7 @@ useEffect(()=>{
   {
      const Claims = Moralis.Object.extend("Claims")
      const query = new Moralis.Query(Claims)
-     query.equalTo("owner",user.get("ethAddress"))
+    // query.equalTo("owner",user.get("ethAddress"))
      query.descending("createdAt")
     query.include("policy")
     query.find().then((result)=>{

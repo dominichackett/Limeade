@@ -91,8 +91,8 @@ export default function PetForm() {
       setNotificationTitle("Claim");
       setNotificationDescription("Claim Approved.");
       setShow(true);
-      setRefreshClaims(new Date())
-      handleStep("2")
+      //setRefreshClaims(new Date())
+     // handleStep("2")
     } catch (error) {
       setDialogType(2); //Failed
       setNotificationTitle("Claim Approval Failed");
@@ -133,7 +133,7 @@ export default function PetForm() {
       setNotificationTitle("Claim");
       setNotificationDescription("Claim Denied.");
       setShow(true);
-      setRefreshClaims(new Date())
+      //setRefreshClaims(new Date())
       handleStep("2")
     } catch (error) {
       setDialogType(2); //Failed

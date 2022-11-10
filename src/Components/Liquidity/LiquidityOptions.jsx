@@ -109,6 +109,8 @@ useEffect(()=>{
         const data = await getUniswapPositionNFT(user.get("ethAddress"))
       //  console.log(data)
         let _positions = []
+        if(data.length <=0)
+         return
         for (const nft of data[0].nft_data) {
           //console.log(nft)
           const pm = new ethers.Contract(positionManagerAddress,INonFungiblePositionManagerABI.abi,web3.getSigner())
@@ -373,9 +375,7 @@ useEffect(()=>{
           >
             <div className="flex items-center px-2 justify-center w-6/12 py-1 text-white bg-black rounded-full">
               <button
-                onClick={() => {
-                  setSelected("New");
-                }}
+              
                 className="px-2 rounded-full"
               >
                 Claim Reserve
@@ -383,9 +383,7 @@ useEffect(()=>{
             </div>
             <div className="flex items-center justify-center px-2 w-6/12  text-black rounded-full">
               <button
-                onClick={() => {
-                  setSelected("Past");
-                }}
+              
                 className="px-2 rounded-full"
               >
                 LIME LP

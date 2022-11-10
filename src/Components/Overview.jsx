@@ -4,6 +4,7 @@ import {
   ChevronDoubleRightIcon,
   ExclamationCircleIcon,
   ShieldCheckIcon,
+  TrashIcon,
   XCircleIcon,
 } from "@heroicons/react/24/outline";
 import { ArrowDownRightIcon } from "@heroicons/react/24/solid";
@@ -18,6 +19,7 @@ import {
 import { ethers } from "ethers";
 import Notification from "./Notification/Notification";
 import { tokenMetadata } from "../uitls/utils";
+import { LIMEABI, LIMEAddress } from "./Contracts/LIMEContract";
 
 export default function Start(props) {
   const { Moralis, user, isAuthenticated, web3, isWeb3Enabled, enableWeb3 } =
@@ -33,6 +35,7 @@ export default function Start(props) {
   const router = useRouter();
   const [claims, setClaims] = useState([]);
   const [staked, setStaked] = useState();
+  const [refreshData,setRefreshData] = useState(new Date())
   // NOTIFICATIONS functions
   const [notificationTitle, setNotificationTitle] = useState();
   const [notificationDescription, setNotificationDescription] = useState();
@@ -142,15 +145,15 @@ export default function Start(props) {
         );
         try {
         let transaction = await limeManagerContract.staked();
-        setStaked(transaction.toNumber());
+        setStaked(ethers.utils.formatUnits(transaction.toString(),18));
         }catch(error)
         {
-
+           setStaked(0)
         }
       }
     }
     getStaked();
-  }, [isAuthenticated, web3, user]);
+  }, [refreshData,isAuthenticated, web3, user]);
 
   useEffect(() => {
     async function getAgent() {
@@ -258,6 +261,63 @@ export default function Start(props) {
   function nextStep() {
     props.handleStep("2");
   }
+
+  async function stake(){
+
+    const lm = new ethers.Contract(LimeManagerAddress,LimeManagerABI,web3.getSigner())
+    const lime =  new ethers.Contract(LIMEAddress,LIMEABI,web3.getSigner())
+
+    try {
+
+    const txLime = await lime.approve(LimeManagerAddress,ethers.utils.parseUnits("200",18))
+    await txLime.wait()
+    const txLM = await lm.agentStaking(200)
+    await txLM.wait()
+    setRefreshData(new Date()) 
+    setDialogType(1) //Success
+    setNotificationTitle("Staking")
+    setNotificationDescription("Successfully staked LIME.")
+    setShow(true)
+    }catch(error)
+    {
+      setDialogType(2); //Failed
+      setNotificationTitle("Staking");
+      setNotificationDescription(
+        error.data ? error.data.message : error.message
+      );
+      console.log(error)
+  
+      setShow(true);
+    }
+  }
+
+  async function unstake(){
+    const lm = new ethers.Contract(LimeManagerAddress,LimeManagerABI,web3.getSigner())
+
+    try {
+
+    const txLM = await lm.removeAgentStake(200)
+    await txLM.wait()
+    setRefreshData(new Date()) 
+    setDialogType(1) //Success
+    setNotificationTitle("Unstake")
+    setNotificationDescription("Successfully unstaked LIME.")
+    setShow(true)
+    }catch(error)
+    {
+      setDialogType(2); //Failed
+      setNotificationTitle("Unstake");
+      setNotificationDescription(
+        error.data ? error.data.message : error.message
+      );
+      console.log(error)
+  
+      setShow(true);
+    }
+
+  }
+
+
   return (
     <main className="flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
       <h1 className="text-4xl mt-12 tracking-widest  whitespace-nowrap">
@@ -347,20 +407,35 @@ export default function Start(props) {
         <div className="flex  flex-col items-center h-80 w-full justify-start py-6 bg-[#CAF46F] bg-opacity-70 rounded-xl sm:w-full">
           <div className="flex flex-col items-center w-full justify-start">
             <div
-              onClick={() => {
-                router.push("/stake");
-              }}
+             
               className="flex flex-row items-center cursor-pointer hover:ring-2 hover:ring-black hover:shadow-xl px-4 hover:ring-opacity-75 hover:rounded-full"
             >
               <p className="text-xl font-bold">Staking</p>
               <ArrowDownRightIcon className="h-4 ml-2 -rotate-90" />
             </div>
 
-            <div className="flex flex-col items-center w-full mt-16 justify-center ">
-              <div className="flex flex-row items-center w-9/12 justify-between">
-                <p className="text-xl">{staked} LIME</p>
-                <ShieldCheckIcon className="h-5 text-green-500" />
+            <div  className="flex flex-col items-center w-full mt-16 justify-center ">
+              <div className="flex flex-row items-center w-9/12 justify-center items-center">
+                <p className="text-xl">{parseInt(staked)} LIME</p>
               </div>
+             { parseFloat(staked) == 0   && <div  className={`flex flex-row items-center w-9/12 justify-between mt-4 `}>
+
+              <button  
+               onClick={()=>stake()}
+              className="flex flex-col items-center justify-center w-40 h-12 bg-black text-white rounded-full"
+            >
+             Stake Lime 
+            </button>
+            </div>}
+            {parseFloat(staked) > 0  && <div className="flex flex-row items-center w-9/12 justify-between mt-4">
+
+<button
+onClick={()=>unstake()}
+className="flex flex-col items-center justify-center w-40 h-12 bg-black text-white rounded-full"
+>
+Unstake Lime
+</button>
+</div>}
             </div>
           </div>
         </div>
