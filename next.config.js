@@ -10,4 +10,6 @@ module.exports = {
     NEXT_PUBLIC_COVALENT_KEY: "ckey_28e144556c844a9cbf7d252abbf",
 
   },
+  reactStrictMode: false,
+
 };

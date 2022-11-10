@@ -174,7 +174,7 @@ export default function PetForm() {
   }
 
   return (
-    <main className="flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
+    <main className="flex w-full flex-1 h-full flex-col items-center justify-center  text-center">
       {/*  MAKE CLAIM  */}
       <div hidden={step != "1"} className="w-full ">
         <div className="w-full flex items-center justify-center">

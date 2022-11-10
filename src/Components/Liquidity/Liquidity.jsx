@@ -32,7 +32,7 @@ export default function PetForm() {
   //   LOOPING THRU STEPS
 
   return (
-    <main className="flex w-full flex-1 h-full flex-col items-center justify-center px-20 text-center">
+    <div className="flex w-full flex-1 h-full flex-col items-center justify-center  text-center">
       {/*  GET STARTED  */}
       <div className="flex flex-col w-full items-center">
         {/* IMGS */}
@@ -48,6 +48,6 @@ export default function PetForm() {
           <LiquidityOptions title={Title} />
         </div>
       </div>
-    </main>
+    </div>
   );
 }
